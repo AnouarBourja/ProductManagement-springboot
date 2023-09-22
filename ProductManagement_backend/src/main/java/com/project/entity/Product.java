@@ -23,7 +23,7 @@ public class Product
     private Double priceProduct;
 
     private Date creationDate;
-    
+
     @ManyToOne
     private Category category;
 
