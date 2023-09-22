@@ -23,8 +23,9 @@ public class Product
     private Double priceProduct;
 
     private Date creationDate;
-
-
+    
+    @ManyToOne
+    private Category category;
 
     public Product(String nameProduct, Double priceProduct, Date creationDate)
     {
