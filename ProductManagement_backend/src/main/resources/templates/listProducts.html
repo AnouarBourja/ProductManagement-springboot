@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+    <meta charset="utf-8">
+    <title>Products List</title>
+</head>
+<body>
+<div th:replace="template"></div>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Products List
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th><th>Product Name</th><th>Price</th><th>Date</th><th>Category</th>
+                </tr>
+                <tr th:each="p:${products.content}">
+                    <td th:text="${p.idProduct}"></td>
+                    <td th:text="${p.nameProduct}"></td>
+                    <td th:text="${p.priceProduct}"></td>
+                    <td th:text="${p.creationDate}"></td>
+
+                    <td th:if= "${!#strings.isEmpty(p.category)}" th:text="${p.category.nameCategory}"></td>
+                    <td th:if= "${#strings.isEmpty(p.category)}" th:text="${'No category'}"></td>
+
+
+
+                    <td><a class="btn btn-success" th:href="@{editProduct(id=${p.idProduct}, page=${currentPage},size=${size})}">Update</a></td>
+                    <td><a class="btn btn-danger" onclick="return confirm('Please confirm ?')"
+                           th:href="@{deleteProduct(id=${p.idProduct}, page=${currentPage},size=${size})}">Delete</a></td>
+                </tr>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="page,status:${pages}">
+                    <a th:class="${status.index==currentPage?'btn btn-primary':'btn'  }"
+                       th:href="@{ listProducts(page=${status.index}, size=${size} ) }"
+                       th:text="${status.index }"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
